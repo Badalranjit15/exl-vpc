@@ -55,7 +55,7 @@ inputs:
      type: string
      description: Attching routing table
      display_label: Routing Table CIDR
-     default: []
+     default:
 
 node_templates:
 
