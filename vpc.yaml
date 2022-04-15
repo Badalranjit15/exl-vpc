@@ -50,6 +50,12 @@ inputs:
     description: Whether or not to enable a VPN gateway
     display_label: Enable VPN Gateway
     default: false
+    
+  routing_table_cidr:
+     type: string
+     description: Attching routing table
+     display_label: Routing Table CIDR
+     default: []
 
 node_templates:
 
@@ -69,6 +75,7 @@ node_templates:
           region: { get_input: region }
           vpc_name: { get_input: vpc_name }
           vpc_cidr: { get_input: vpc_cidr }
+          routing_table_cidr: { get_input: routing_table_cidr }
           private_subnets: { get_input: private_subnets }
           enable_nat_gateway: { get_input: enable_nat_gateway }
           enable_vpn_gateway: { get_input: enable_vpn_gateway }
