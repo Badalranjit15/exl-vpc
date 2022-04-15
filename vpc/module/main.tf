@@ -6,7 +6,6 @@ module "vpc" {
 
   azs             = data.aws_availability_zones.available.names
   private_subnets = var.private_subnets
-  public_subnets  = var.public_subnets
 
   enable_nat_gateway = var.enable_nat_gateway
   enable_vpn_gateway = var.enable_vpn_gateway
@@ -37,3 +36,11 @@ resource "aws_default_security_group" "default" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
+
+resource "aws_route_table" "example" {
+  vpc_id = aws_vpc.example.id
+
+  route {
+    cidr_block = var.routing_table_cidr
+    gateway_id = aws_internet_gateway.example.id
+  }
