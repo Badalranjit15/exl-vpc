@@ -25,37 +25,25 @@ inputs:
     type: string
     description: Name of the VPC
     display_label: VPC Name
-    default: example-vpc
+    default: 
 
   vpc_cidr:
     type: string
     description: CIDR address for the VPC
     display_label: VPC CIDR
-    default: 10.0.0.0/16
+    default: 
 
   private_subnets:
     type: list
     description: List of private subnets to create within the VPC
     display_label: Private Subnets
-    default:
-      - 10.0.1.0/24
-      - 10.0.2.0/24
-      - 10.0.3.0/24
-
-  public_subnets:
-    type: list
-    description: List of public subnets to create within the VPC
-    display_label: Public Subnets
-    default:
-      - 10.0.101.0/24
-      - 10.0.102.0/24
-      - 10.0.103.0/24
+    default: []
 
   enable_nat_gateway:
     type: boolean
     description: Whether or not to enable a NAT gateway for the private subnets
     display_label: Enable NAT Gateway
-    default: true
+    default: false
 
   enable_vpn_gateway:
     type: boolean
@@ -82,7 +70,6 @@ node_templates:
           vpc_name: { get_input: vpc_name }
           vpc_cidr: { get_input: vpc_cidr }
           private_subnets: { get_input: private_subnets }
-          public_subnets: { get_input: public_subnets }
           enable_nat_gateway: { get_input: enable_nat_gateway }
           enable_vpn_gateway: { get_input: enable_vpn_gateway }
     relationships:
@@ -93,8 +80,6 @@ capabilities:
   vpc_id:
     value: { get_attributes_list: [ vpc, outputs, vpc_id, value ] }
 
-  public_subnets:
-    value: { get_attributes_list: [ vpc, outputs, public_subnets, value ] }
 
   private_subnets:
     value: { get_attributes_list: [ vpc, outputs, private_subnets, value ] }
